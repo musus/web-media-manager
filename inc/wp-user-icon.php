@@ -3,6 +3,14 @@
 add_action( 'show_user_profile', 'wp_user_icon_fields' );
 add_action( 'edit_user_profile', 'wp_user_icon_fields' );
 
+function media_uploader_enqueue() {
+	wp_enqueue_media();
+	wp_register_script('media-uploader', plugins_url('media-uploader.js' , __FILE__ ), array('jquery'));
+	wp_enqueue_script('media-uploader');
+}
+add_action('admin_enqueue_scripts', 'media_uploader_enqueue');
+
+
 function wp_user_icon_fields( $user ) { ?>
 	<style>
 		.user-profile-picture {
@@ -39,8 +47,8 @@ function wp_user_icon_fields( $user ) { ?>
 
 			<td>
 				<form action="">
-					<input type="text" name="wp_user_icon" id="btn-add-image" value="<?php echo esc_attr( get_the_author_meta( 'wp_user_icon', $user->ID ) ); ?>" class="regular-text"/>
-					<p class="description"><input type='button' class="button" value="画像選択" id="uploadimage"/>  <input type='button' id="wpui-clear" class="clear-button button" value="リセット"/></p>
+					<input type="text" name="wp_user_icon" id="upload_image" value="<?php echo esc_attr( get_the_author_meta( 'wp_user_icon', $user->ID ) ); ?>" class="regular-text"/>
+					<p class="description"><input type='button' class="button" value="画像選択" id="upload_btn"/>  <input type='button' id="wpui_clear" class="clear-button button" value="リセット"/></p>
 					<p class="description">画像選択・リセットを押した後はプロフィールを更新してください</p>
 				</form>
 			</td>
@@ -59,81 +67,33 @@ add_action( 'admin_head', 'wp_user_icon_upload_js' );
 //wp_enqueue_script('thickbox');
 //wp_enqueue_style('thickbox');
 function wp_user_icon_upload_js() { ?>
+
 	<script type="text/javascript">
-        jQuery(document).ready(function() {
 
-            jQuery(document).find("input[id^='uploadimage']").live('click', function(){
-                //var num = this.id.split('-')[1];
-                formfield = jQuery('#wpui-image').attr('name');
-                tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
-
-                window.send_to_editor = function(html) {
-                    imgurl = jQuery('img',html).attr('src');
-                    jQuery('#wpui-image').val(imgurl);
-
-                    tb_remove();
+        jQuery(document).ready(function($){
+            var mediaUploader;
+            $('#upload_btn').click(function(e) {
+                e.preventDefault();
+                if (mediaUploader) {
+                    mediaUploader.open();
+                    return;
                 }
-
-                return false;
+                mediaUploader = wp.media.frames.file_frame = wp.media({
+                     multiple: false });
+                mediaUploader.on('select', function() {
+                    var attachment = mediaUploader.state().get('selection').first().toJSON();
+                    $('#upload_image').val(attachment.url);
+                });
+                mediaUploader.open();
             });
         });
+
         jQuery(function($){
-            $("#wpui-clear").click(function () {
-                // テキストボックスへ値を設定します
-                $("#wpui-image").val("");
+            $("#wpui_clear").click(function () {
+                $("#upload_image").val("");
             });
         });
 
-        wrapper.find( '#btn-add-image' ).click( function( e ) {
-            e.preventDefault();
-            var custom_uploader_image;
-            var upload_button = $( this );
-            if ( custom_uploader_image ) {
-                custom_uploader_image.open();
-                return;
-            }
-
-            wp.media.view.Modal.prototype.on( 'ready', function(){
-                $( 'select.attachment-filters' )
-                    .find( '[value="uploaded"]' )
-                    .attr( 'selected', true )
-                    .parent()
-                    .trigger( 'change' );
-            } );
-
-            custom_uploader_image = wp.media( {
-                button : {
-                    text: smart_cf_uploader.image_uploader_title
-                },
-                states: [
-                    new wp.media.controller.Library({
-                        title     :  smart_cf_uploader.image_uploader_title,
-                        library   :  wp.media.query( { type: 'image' } ),
-                        multiple  :  false,
-                        filterable: 'uploaded'
-                    })
-                ]
-            } );
-
-            custom_uploader_image.on( 'select', function() {
-                var images = custom_uploader_image.state().get( 'selection' );
-                images.each( function( file ){
-                    var sizes = file.get('sizes');
-                    var image_area = upload_button.parent().find( '.smart-cf-upload-image' );
-                    var sizename = image_area.data('size');
-                    var img = sizes[ sizename ] || sizes.full;
-                    var alt_attr = file.get('title');
-                    image_area.find( 'img' ).remove();
-                    image_area.prepend(
-                        '<img src="' + img.url + '" alt="' + alt_attr + '" />'
-                    );
-                    image_area.removeClass( 'hide' );
-                    upload_button.parent().find( 'input[type="hidden"]' ).val( file.toJSON().id );
-                } );
-            } );
-
-            custom_uploader_image.open();
-        } );
 	</script>
 <?php }
 
