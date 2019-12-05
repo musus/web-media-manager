@@ -2,7 +2,8 @@
 $wpwmm_options = get_option( 'wpwmm_options' );
 if ( isset( $_POST['submit'] ) ) {
 
-	$wpwmm_options['wpwmm_user_icon'] = htmlspecialchars( $_POST['wpwmm_user_icon'] );
+	$wpwmm_options['wpwmm_user_icon']   = htmlspecialchars( $_POST['wpwmm_user_icon'] );
+	$wpwmm_options['wpwmm_rename_file'] = htmlspecialchars( $_POST['wpwmm_rename_file'] );
 	update_option( 'wpwmm_options', $wpwmm_options );
 }
 
@@ -48,11 +49,22 @@ $message = "";
 							<tr>
 								<th><?php _e( "User Icon (avatar) Uploader", "wp-web-media-manager" ) ?></th>
 								<td>
-									<label for="wpwmm-enabled" style="margin-right: 15px;">
-										<input type="radio" name="wpwmm_user_icon" id="wpwmm-enabled" value="1" <?php if ( $wpwmm_options['wpwmm_user_icon'] )
+									<label for="wpwmm-enabled-ui" style="margin-right: 15px;">
+										<input type="radio" name="wpwmm_user_icon" id="wpwmm-enabled-ui" value="1" <?php if ( $wpwmm_options['wpwmm_user_icon'] )
 											echo "checked='checked'" ?> /><?php _e( "Enabled", "wp-web-media-manager" ) ?></label>
-									<label for="wpwmm-disabled">
-										<input type="radio" name="wpwmm_user_icon" id="wpwmm-disabled" value="0" <?php if ( ! $wpwmm_options['wpwmm_user_icon'] )
+									<label for="wpwmm-disabled-ui">
+										<input type="radio" name="wpwmm_user_icon" id="wpwmm-disabled-ui" value="0" <?php if ( ! $wpwmm_options['wpwmm_user_icon'] )
+											echo "checked='checked'" ?> /><?php _e( "Disabled", "wp-web-media-manager" ) ?></label>
+								</td>
+							</tr>
+							<tr>
+								<th><?php _e( "Rename media on upload", "wp-web-media-manager" ) ?></th>
+								<td>
+									<label for="wpwmm-enabled-rf" style="margin-right: 15px;">
+										<input type="radio" name="wpwmm_rename_file" id="wpwmm-enabled-rf" value="1" <?php if ( $wpwmm_options['wpwmm_rename_file'] )
+											echo "checked='checked'" ?> /><?php _e( "Enabled", "wp-web-media-manager" ) ?></label>
+									<label for="wpwmm-disabled-rf">
+										<input type="radio" name="wpwmm_rename_file" id="wpwmm-disabled-rf" value="0" <?php if ( ! $wpwmm_options['wpwmm_rename_file'] )
 											echo "checked='checked'" ?> /><?php _e( "Disabled", "wp-web-media-manager" ) ?></label>
 								</td>
 							</tr>

@@ -44,11 +44,23 @@ add_action( 'wp_enqueue_scripts', "wpwmm_add_stylesheet", 9999 );
 /*
 /*********************************/
 
-$wpwmm_opiton_check = get_option('wpwmm_options');
+$wpwmm_opiton_check = get_option( 'wpwmm_options' );
 
 if ( $wpwmm_opiton_check['wpwmm_user_icon'] == '1' ) {
 	require_once plugin_dir_path( __FILE__ ) . 'inc/wp-user-icon.php';
 }
+
+if ( $wpwmm_opiton_check['wpwmm_rename_file'] == '1' ) {
+	function wpwmm_rename_file( $filename ) {
+		$info = pathinfo( $filename );
+		$ext  = empty( $info['extension'] ) ? '' : '.' . $info['extension'];
+		$name = basename( $filename, $ext );
+
+		return md5( $name ) . $ext;
+	}
+}
+
+add_filter( 'sanitize_file_name', 'wpwmm_rename_file', 10 );
 
 /*********************************/
 /*
@@ -57,8 +69,9 @@ if ( $wpwmm_opiton_check['wpwmm_user_icon'] == '1' ) {
 /*********************************/
 
 function wpwmm_init() {
-	$wpwmm_options = array();
-	$wpwmm_options['wpwmm_user_icon'] = 1;
+	$wpwmm_options                      = array();
+	$wpwmm_options['wpwmm_user_icon']   = 1;
+	$wpwmm_options['wpwmm_rename_file'] = 1;
 
 	add_option( 'wpwmm_options', $wpwmm_options );
 }
