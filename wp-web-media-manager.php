@@ -60,6 +60,10 @@ if ( $wpwmm_opiton_check['wpwmm_rename_file'] == '1' ) {
 	}
 }
 
+if ( $wpwmm_opiton_check['wpwmm_restrict_dashboard'] == '1' ) {
+    require_once plugin_dir_path( __FILE__ ) . 'inc/wp-restrict-dashboard.php';
+}
+
 add_filter( 'sanitize_file_name', 'wpwmm_rename_file', 10 );
 
 /*********************************/
@@ -72,6 +76,7 @@ function wpwmm_init() {
 	$wpwmm_options                      = array();
 	$wpwmm_options['wpwmm_user_icon']   = 1;
 	$wpwmm_options['wpwmm_rename_file'] = 1;
+    $wpwmm_options['wpwmm_restrict_dashboard'] = 1;
 
 	add_option( 'wpwmm_options', $wpwmm_options );
 }
