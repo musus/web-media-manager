@@ -66,6 +66,11 @@ if ( $wpwmm_opiton_check['wpwmm_restrict_dashboard'] == '1' ) {
 
 add_filter( 'sanitize_file_name', 'wpwmm_rename_file', 10 );
 
+
+if ( $wpwmm_opiton_check['wpwmm_show_update_date'] == '1' ) {
+    require_once plugin_dir_path( __FILE__ ) . 'inc/wp-show-update-date.php';
+}
+
 /*********************************/
 /*
 /* 管理画面
@@ -77,6 +82,7 @@ function wpwmm_init() {
 	$wpwmm_options['wpwmm_user_icon']   = 1;
 	$wpwmm_options['wpwmm_rename_file'] = 1;
     $wpwmm_options['wpwmm_restrict_dashboard'] = 1;
+    $wpwmm_options['wpwmm_show_update_date'] = 1;
 
 	add_option( 'wpwmm_options', $wpwmm_options );
 }
