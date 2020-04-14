@@ -8,6 +8,8 @@ function change_modified($post)
 
     if ($publish_date < $update_date) {
         return get_the_modified_date('Y.m.d', $post_id);
+    } else {
+        return get_the_time('Y.m.d', $post_id);
     }
 
 }
