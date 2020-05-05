@@ -6,6 +6,7 @@ if ( isset( $_POST['submit'] ) ) {
 	$wpwmm_options['wpwmm_rename_file'] = htmlspecialchars( $_POST['wpwmm_rename_file'] );
     $wpwmm_options['wpwmm_restrict_dashboard'] = htmlspecialchars( $_POST['wpwmm_restrict_dashboard'] );
     $wpwmm_options['wpwmm_ga'] = htmlspecialchars( $_POST['wpwmm_ga'] );
+    $wpwmm_options['wpwmm_show_update_date'] = htmlspecialchars( $_POST['wpwmm_show_update_date'] );
 	update_option( 'wpwmm_options', $wpwmm_options );
 }
 
@@ -84,6 +85,18 @@ $message = "";
                                 </td>
                             </tr>
 
+                            <tr>
+                                <th><?php _e( "Show update date", "wp-web-media-manager" ) ?></th>
+                                <td>
+                                    <label for="wpwmm-enabled-ud" style="margin-right: 15px;">
+                                        <input type="radio" name="wpwmm_show_update_date" id="wpwmm-enabled-ud" value="1" <?php if ( $wpwmm_options['wpwmm_show_update_date'] )
+                                            echo "checked='checked'" ?> /><?php _e( "Enabled", "wp-web-media-manager" ) ?></label>
+                                    <label for="wpwmm-disabled-ud">
+                                        <input type="radio" name="wpwmm_show_update_date" id="wpwmm-disabled-ud" value="0" <?php if ( ! $wpwmm_options['wpwmm_show_update_date'] )
+                                            echo "checked='checked'" ?> /><?php _e( "Disabled", "wp-web-media-manager" ) ?></label>
+
+                                </td>
+                            </tr>
 
                             <tr>
                                 <th><?php _e( "Google Analytics code", "wp-web-media-manager" ) ?></th>
@@ -93,7 +106,6 @@ $message = "";
                                             echo $wpwmm_options['wpwmm_ga']; ?>" /></label>
                                 </td>
                             </tr>
-
 							<tr>
 								<th></th>
 								<td>
