@@ -75,6 +75,10 @@ if ( $wpwmm_opiton_check['wpwmm_show_update_date'] == '1' ) {
     require_once plugin_dir_path( __FILE__ ) . 'inc/wp-show-update-date.php';
 }
 
+if ( $wpwmm_opiton_check['wpwmm_revisions'] ) {
+	require_once plugin_dir_path( __FILE__ ) . 'inc/wp-revisions.php';
+}
+
 /*********************************/
 /*
 /* 管理画面
@@ -88,6 +92,7 @@ function wpwmm_init() {
     $wpwmm_options['wpwmm_restrict_dashboard'] = 1;
     $wpwmm_options['wpwmm_ga'] = "";
     $wpwmm_options['wpwmm_show_update_date'] = 1;
+	$wpwmm_options['wpwmm_ga'] = "5";
 	add_option( 'wpwmm_options', $wpwmm_options );
 }
 

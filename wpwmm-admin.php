@@ -7,6 +7,7 @@ if ( isset( $_POST['submit'] ) ) {
     $wpwmm_options['wpwmm_restrict_dashboard'] = htmlspecialchars( $_POST['wpwmm_restrict_dashboard'] );
     $wpwmm_options['wpwmm_ga'] = htmlspecialchars( $_POST['wpwmm_ga'] );
     $wpwmm_options['wpwmm_show_update_date'] = htmlspecialchars( $_POST['wpwmm_show_update_date'] );
+	$wpwmm_options['wpwmm_revisions'] = htmlspecialchars( $_POST['wpwmm_revisions'] );
 	update_option( 'wpwmm_options', $wpwmm_options );
 }
 
@@ -95,6 +96,15 @@ $message = "";
                                         <input type="radio" name="wpwmm_show_update_date" id="wpwmm-disabled-ud" value="0" <?php if ( ! $wpwmm_options['wpwmm_show_update_date'] )
                                             echo "checked='checked'" ?> /><?php _e( "Disabled", "wp-web-media-manager" ) ?></label>
 
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><?php _e( "Reduce of revisions", "wp-web-media-manager" ) ?></th>
+                                <td>
+                                    <label for="wpwmm-enabled-rv" style="margin-right: 15px;">
+                                        <input type="number" name="wpwmm_revisions" id="wpwmm-enabled-rv" value="<?php if ( $wpwmm_options['wpwmm_revisions'] )
+				                            echo $wpwmm_options['wpwmm_revisions']; ?>" /></label>
                                 </td>
                             </tr>
 
