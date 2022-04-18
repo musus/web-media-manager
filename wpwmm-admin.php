@@ -55,10 +55,10 @@ $message = "";
 								<th><?php _e( "User Icon (avatar) Uploader", "wp-web-media-manager" ) ?></th>
 								<td>
 									<label for="wpwmm-enabled-ui" style="margin-right: 15px;">
-										<input type="radio" name="wpwmm_user_icon" id="wpwmm-enabled-ui" value="1" <?php if ( $wpwmm_options['wpwmm_user_icon'] )
+										<input type="radio" name="wpwmm_user_icon" id="wpwmm-enabled-ui" value="1" <?php if ( isset( $wpwmm_options['wpwmm_user_icon'] ) )
 											echo "checked='checked'" ?> /><?php _e( "Enabled", "wp-web-media-manager" ) ?></label>
 									<label for="wpwmm-disabled-ui">
-										<input type="radio" name="wpwmm_user_icon" id="wpwmm-disabled-ui" value="0" <?php if ( ! $wpwmm_options['wpwmm_user_icon'] )
+										<input type="radio" name="wpwmm_user_icon" id="wpwmm-disabled-ui" value="0" <?php if ( ! isset( $wpwmm_options['wpwmm_user_icon'] ) )
 											echo "checked='checked'" ?> /><?php _e( "Disabled", "wp-web-media-manager" ) ?></label>
 								</td>
 							</tr>
@@ -66,10 +66,10 @@ $message = "";
 								<th><?php _e( "Rename media on upload", "wp-web-media-manager" ) ?></th>
 								<td>
 									<label for="wpwmm-enabled-rf" style="margin-right: 15px;">
-										<input type="radio" name="wpwmm_rename_file" id="wpwmm-enabled-rf" value="1" <?php if ( $wpwmm_options['wpwmm_rename_file'] )
+										<input type="radio" name="wpwmm_rename_file" id="wpwmm-enabled-rf" value="1" <?php if ( isset( $wpwmm_options['wpwmm_rename_file'] ) )
 											echo "checked='checked'" ?> /><?php _e( "Enabled", "wp-web-media-manager" ) ?></label>
 									<label for="wpwmm-disabled-rf">
-										<input type="radio" name="wpwmm_rename_file" id="wpwmm-disabled-rf" value="0" <?php if ( ! $wpwmm_options['wpwmm_rename_file'] )
+										<input type="radio" name="wpwmm_rename_file" id="wpwmm-disabled-rf" value="0" <?php if ( ! isset( $wpwmm_options['wpwmm_rename_file'] ) )
 											echo "checked='checked'" ?> /><?php _e( "Disabled", "wp-web-media-manager" ) ?></label>
 								</td>
 							</tr>
@@ -78,10 +78,10 @@ $message = "";
                                 <th><?php _e( "Restrict dashboard access", "wp-web-media-manager" ) ?></th>
                                 <td>
                                     <label for="wpwmm-enabled-ra" style="margin-right: 15px;">
-                                        <input type="radio" name="wpwmm_restrict_dashboard" id="wpwmm-enabled-ra" value="1" <?php if ( $wpwmm_options['wpwmm_restrict_dashboard'] )
+                                        <input type="radio" name="wpwmm_restrict_dashboard" id="wpwmm-enabled-ra" value="1" <?php if ( isset( $wpwmm_options['wpwmm_restrict_dashboard'] ) )
                                             echo "checked='checked'" ?> /><?php _e( "Enabled", "wp-web-media-manager" ) ?></label>
                                     <label for="wpwmm-disabled-ra">
-                                        <input type="radio" name="wpwmm_restrict_dashboard" id="wpwmm-disabled-ra" value="0" <?php if ( ! $wpwmm_options['wpwmm_restrict_dashboard'] )
+                                        <input type="radio" name="wpwmm_restrict_dashboard" id="wpwmm-disabled-ra" value="0" <?php if ( ! isset( $wpwmm_options['wpwmm_restrict_dashboard'] ) )
                                             echo "checked='checked'" ?> /><?php _e( "Disabled", "wp-web-media-manager" ) ?></label>
                                 </td>
                             </tr>
@@ -90,10 +90,10 @@ $message = "";
                                 <th><?php _e( "Show update date", "wp-web-media-manager" ) ?></th>
                                 <td>
                                     <label for="wpwmm-enabled-ud" style="margin-right: 15px;">
-                                        <input type="radio" name="wpwmm_show_update_date" id="wpwmm-enabled-ud" value="1" <?php if ( $wpwmm_options['wpwmm_show_update_date'] )
+                                        <input type="radio" name="wpwmm_show_update_date" id="wpwmm-enabled-ud" value="1" <?php if ( isset( $wpwmm_options['wpwmm_show_update_date'] ) )
                                             echo "checked='checked'" ?> /><?php _e( "Enabled", "wp-web-media-manager" ) ?></label>
                                     <label for="wpwmm-disabled-ud">
-                                        <input type="radio" name="wpwmm_show_update_date" id="wpwmm-disabled-ud" value="0" <?php if ( ! $wpwmm_options['wpwmm_show_update_date'] )
+                                        <input type="radio" name="wpwmm_show_update_date" id="wpwmm-disabled-ud" value="0" <?php if ( ! isset( $wpwmm_options['wpwmm_show_update_date'] ) )
                                             echo "checked='checked'" ?> /><?php _e( "Disabled", "wp-web-media-manager" ) ?></label>
 
                                 </td>
@@ -103,7 +103,7 @@ $message = "";
                                 <th><?php _e( "Reduce of revisions", "wp-web-media-manager" ) ?></th>
                                 <td>
                                     <label for="wpwmm-enabled-rv" style="margin-right: 15px;">
-                                        <input type="number" name="wpwmm_revisions" id="wpwmm-enabled-rv" value="<?php if ( $wpwmm_options['wpwmm_revisions'] )
+                                        <input type="number" name="wpwmm_revisions" id="wpwmm-enabled-rv" value="<?php if ( isset( $wpwmm_options['wpwmm_revisions'] ) )
 				                            echo $wpwmm_options['wpwmm_revisions']; ?>" /></label>
                                 </td>
                             </tr>
@@ -112,7 +112,7 @@ $message = "";
                                 <th><?php _e( "Google Analytics code", "wp-web-media-manager" ) ?></th>
                                 <td>
                                     <label for="wpwmm-enabled-ga" style="margin-right: 15px;">
-                                        <input type="text" name="wpwmm_ga" id="wpwmm-enabled-ga" value="<?php if ( $wpwmm_options['wpwmm_ga'] )
+                                        <input type="text" name="wpwmm_ga" id="wpwmm-enabled-ga" value="<?php if ( isset( $wpwmm_options['wpwmm_ga'] ) )
                                             echo $wpwmm_options['wpwmm_ga']; ?>" /></label>
                                 </td>
                             </tr>
