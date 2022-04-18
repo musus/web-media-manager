@@ -1,7 +1,6 @@
 <?php
 // replace update date
 function change_modified( $value, $format, $post ) {
-{
     $post_id = $post->ID;
     $publish_date = get_the_time('Ymd', $post_id);
     $update_date = get_the_modified_date('Ymd', $post_id);
