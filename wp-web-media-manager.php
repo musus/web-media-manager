@@ -44,17 +44,16 @@ add_action( 'wp_enqueue_scripts', "wpwmm_add_stylesheet", 9999 );
 /*
 /*********************************/
 
+wpwmm_init();
+
 $wpwmm_opiton_check = get_option( 'wpwmm_options' );
 
-if( ! isset( $wpwmm_opiton_check['wpwmm_user_icon'] ) ){
-	$wpwmm_opiton_check['wpwmm_user_icon'] = '0';
-} else if ( $wpwmm_opiton_check['wpwmm_user_icon'] == '1' ) {
+
+if ( $wpwmm_opiton_check['wpwmm_user_icon'] == '1' ) {
 	require_once plugin_dir_path( __FILE__ ) . 'inc/wp-user-icon.php';
 }
 
-if( ! isset( $wpwmm_opiton_check['wpwmm_rename_file'] ) ){
-	$wpwmm_opiton_check['wpwmm_rename_file'] = '0';
-} else if ( $wpwmm_opiton_check['wpwmm_rename_file'] == '1' ) {
+if ( $wpwmm_opiton_check['wpwmm_rename_file'] == '1' ) {
 	function wpwmm_rename_file( $filename ) {
 		$info = pathinfo( $filename );
 		$ext  = empty( $info['extension'] ) ? '' : '.' . $info['extension'];
@@ -62,32 +61,22 @@ if( ! isset( $wpwmm_opiton_check['wpwmm_rename_file'] ) ){
 
 		return md5( $name ) . $ext;
 	}
+	add_filter( 'sanitize_file_name', 'wpwmm_rename_file', 10 );
 }
 
-if( ! isset( $wpwmm_opiton_check['wpwmm_restrict_dashboard'] ) ){
-	$wpwmm_opiton_check['wpwmm_restrict_dashboard'] = '0';
-} else if ( $wpwmm_opiton_check['wpwmm_restrict_dashboard'] == '1' ) {
+if ( $wpwmm_opiton_check['wpwmm_restrict_dashboard'] == '1' ) {
     require_once plugin_dir_path( __FILE__ ) . 'inc/wp-restrict-dashboard.php';
 }
 
-if( ! isset( $wpwmm_opiton_check['wpwmm_ga'] ) ){
-	$wpwmm_opiton_check['wpwmm_ga'] = '0';
-} else if ( $wpwmm_opiton_check['wpwmm_ga']) {
+if ( $wpwmm_opiton_check['wpwmm_ga']) {
     require_once plugin_dir_path( __FILE__ ) . 'inc/wp-ga.php';
 }
 
-add_filter( 'sanitize_file_name', 'wpwmm_rename_file', 10 );
-
-
-if( ! isset( $wpwmm_opiton_check['wpwmm_show_update_date'] ) ){
-	$wpwmm_opiton_check['wpwmm_show_update_date'] = '0';
-} else if ( $wpwmm_opiton_check['wpwmm_show_update_date'] == '1' ) {
+if ( $wpwmm_opiton_check['wpwmm_show_update_date'] == '1' ) {
     require_once plugin_dir_path( __FILE__ ) . 'inc/wp-show-update-date.php';
 }
 
-if( ! isset( $wpwmm_opiton_check['wpwmm_revisions'] ) ){
-	$wpwmm_opiton_check['wpwmm_revisions'] = '0';
-} else if ( $wpwmm_opiton_check['wpwmm_revisions'] ) {
+if ( $wpwmm_opiton_check['wpwmm_revisions'] ) {
 	require_once plugin_dir_path( __FILE__ ) . 'inc/wp-revisions.php';
 }
 
@@ -98,14 +87,27 @@ if( ! isset( $wpwmm_opiton_check['wpwmm_revisions'] ) ){
 /*********************************/
 
 function wpwmm_init() {
-	$wpwmm_options                      = array();
-	$wpwmm_options['wpwmm_user_icon']   = 1;
-	$wpwmm_options['wpwmm_rename_file'] = 1;
-    $wpwmm_options['wpwmm_restrict_dashboard'] = 1;
-    $wpwmm_options['wpwmm_ga'] = "";
-    $wpwmm_options['wpwmm_show_update_date'] = 1;
-	$wpwmm_options['wpwmm_ga'] = "5";
-	add_option( 'wpwmm_options', $wpwmm_options );
+	$wpwmm_options = get_option( 'wpwmm_options' );
+
+	if ( ! isset( $wpwmm_options['wpwmm_user_icon'] ) ) {
+		$wpwmm_options['wpwmm_user_icon'] = '0';
+	}
+	if( ! isset( $wpwmm_options['wpwmm_rename_file'] ) ){
+		$wpwmm_options['wpwmm_rename_file'] = '0';
+	}
+	if( ! isset( $wpwmm_options['wpwmm_restrict_dashboard'] ) ){
+		$wpwmm_options['wpwmm_restrict_dashboard'] = '0';
+	}
+	if( ! isset( $wpwmm_options['wpwmm_show_update_date'] ) ){
+		$wpwmm_options['wpwmm_show_update_date'] = '0';
+	}
+	if( ! isset( $wpwmm_options['wpwmm_revisions'] ) ){
+		$wpwmm_options['wpwmm_revisions'] = '';
+	}
+	if( ! isset( $wpwmm_options['wpwmm_ga'] ) ){
+		$wpwmm_options['wpwmm_ga'] = '';
+	}
+	update_option( 'wpwmm_options', $wpwmm_options );
 }
 
 add_action( 'activate_wp-web-media-manager/wp-web-media-manager.php', 'wpwmm_init' );
