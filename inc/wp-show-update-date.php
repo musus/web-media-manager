@@ -2,13 +2,13 @@
 // replace update date
 function change_modified( $value, $format, $post ) {
 	$post_id      = $post->ID;
-	$publish_date = get_the_time( 'Ymd', $post_id );
-	$update_date  = get_the_modified_date( 'Ymd', $post_id );
+	$publish_date = get_the_time( $format, $post_id );
+	$update_date  = get_the_modified_date( $format, $post_id );
 
 	if ( $publish_date < $update_date ) {
-		return get_the_modified_date( 'Y.m.d', $post_id );
+		return get_the_modified_date( $format, $post_id );
 	} else {
-		return get_the_time( 'Y.m.d', $post_id );
+		return get_the_time( $format, $post_id );
 	}
 
 }
