@@ -3,7 +3,8 @@ Contributors: musus
 Donate link: 
 Tags: Japanese
 Requires at least: 5.3.2
-Tested up to: 5.3
+Tested up to: 6.7.1
+Requires PHP: 7.4
 Stable tag: 1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -29,3 +30,6 @@ This plug-in contains several useful functions when operating web media.
 
 = 1.0 =
 * Create plugin.
+
+= 1.1 =
+* Compatible with WP 6.7.1

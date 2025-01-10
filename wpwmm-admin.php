@@ -135,12 +135,11 @@ $message = '';
 								<th><?php _e( 'Reduce of revisions', 'wp-web-media-manager' ); ?></th>
 								<td>
 									<label for="wpwmm-enabled-rv" style="margin-right: 15px;">
-										<input type="number" name="wpwmm_revisions" id="wpwmm-enabled-rv" value="
-										<?php
+										<input type="number" name="wpwmm_revisions" id="wpwmm-enabled-rv" value="<?php
 										if ( $wpwmm_options['wpwmm_revisions'] ) {
 											echo $wpwmm_options['wpwmm_revisions'];}
-										?>
-											" /></label>
+										?>" />
+									</label>
 								</td>
 							</tr>
 
@@ -148,12 +147,12 @@ $message = '';
 								<th><?php _e( 'Google Analytics code', 'wp-web-media-manager' ); ?></th>
 								<td>
 									<label for="wpwmm-enabled-ga" style="margin-right: 15px;">
-										<input type="text" name="wpwmm_ga" id="wpwmm-enabled-ga" value="
-										<?php
+										<input type="text" name="wpwmm_ga" id="wpwmm-enabled-ga" value="<?php
 										if ( $wpwmm_options['wpwmm_ga'] ) {
-											echo $wpwmm_options['wpwmm_ga'];}
-										?>
-											" /></label>
+											echo $wpwmm_options['wpwmm_ga'];
+										}
+										?>" />
+									</label>
 								</td>
 							</tr>
 							<tr>

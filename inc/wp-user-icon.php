@@ -11,8 +11,23 @@ function media_uploader_enqueue() {
 
 add_action( 'admin_enqueue_scripts', 'media_uploader_enqueue' );
 
+function wp_user_icon_get_user_id() {
+	if ( defined( 'IS_PROFILE_PAGE' ) && IS_PROFILE_PAGE ) {
+		return get_current_user_id();
+	} elseif ( ! empty( $_GET['user_id'] ) && is_numeric( $_GET['user_id'] ) ) {
+		return $_GET['user_id'];
+	} else {
+		return false;
+	}
+}
 
-function wp_user_icon_fields( $user ) { ?>
+function wp_user_icon_fields( $user ) {
+	$user_id = wp_user_icon_get_user_id();
+	if ( ! $user_id ) {
+		die( 'No user id defined.' );
+	}
+
+	?>
 	<style>
 		.user-profile-picture {
 			display: none;
@@ -26,16 +41,6 @@ function wp_user_icon_fields( $user ) { ?>
 			<th>現在のプロフィール</th>
 			<td>
 				<?php
-				// If is current user's profile (profile.php)
-				if ( defined( 'IS_PROFILE_PAGE' ) && IS_PROFILE_PAGE ) {
-					$user_id = get_current_user_id();
-					// If is another user's profile page
-				} elseif ( ! empty( $_GET['user_id'] ) && is_numeric( $_GET['user_id'] ) ) {
-					$user_id = $_GET['user_id'];
-					// Otherwise something is wrong.
-				} else {
-					die( 'No user id defined.' );
-				}
 				$author_id = $user_id;
 				$avatar    = get_avatar( $author_id );
 				echo $avatar;
@@ -139,11 +144,8 @@ function wp_user_icon_change_avatar( $avatar, $id_or_email, $size, $default, $al
 		$user_icon_url = get_user_meta( $user_id, 'wp_user_icon', 'true' );
 
 		if ( $user_icon_url ) {
-			$avatar = $user_icon_url;
-			$avatar = '<img alt="' . $alt . '" src="' . $avatar . '" class="avatar avatar-' . $size . ' photo" height="' . $size . '" width="' . $size . '" />';
-
+			$avatar = '<img alt="' . $alt . '" src="' . $user_icon_url . '" class="avatar avatar-' . $size . ' photo" height="' . $size . '" width="' . $size . '" />';
 		}
-
 	}
 
 	return $avatar;

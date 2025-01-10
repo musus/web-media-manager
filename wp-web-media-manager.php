@@ -3,7 +3,7 @@
 /*
 Plugin Name: WP Web Media Manager
 Description: Multi-function plug-in for all web media.
-Version: 1.0
+Version: 1.1
 Author: Susumu Seino by aniuma
 Author URI: https://aniu.ma
 */
@@ -11,7 +11,7 @@ Author URI: https://aniu.ma
 
 function wpwmm_add_stylesheet() {
 
-	if ( is_admin() or ! is_super_admin() ) {
+	if ( is_admin() || ! is_super_admin() ) {
 		return;
 	}
 
