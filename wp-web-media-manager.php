@@ -35,14 +35,12 @@ function wpwmm_add_stylesheet() {
 }
 
 
-add_action( 'wp_enqueue_scripts', "wpwmm_add_stylesheet", 9999 );
+add_action( 'wp_enqueue_scripts', 'wpwmm_add_stylesheet', 9999 );
 
 
-/*********************************/
-/*
-/* 基本機能
-/*
-/*********************************/
+/*********************************
+ * 基本機能
+ ********************************/
 
 wpwmm_init();
 
@@ -65,46 +63,43 @@ if ( $wpwmm_opiton_check['wpwmm_rename_file'] == '1' ) {
 }
 
 if ( $wpwmm_opiton_check['wpwmm_restrict_dashboard'] == '1' ) {
-    require_once plugin_dir_path( __FILE__ ) . 'inc/wp-restrict-dashboard.php';
+	require_once plugin_dir_path( __FILE__ ) . 'inc/wp-restrict-dashboard.php';
 }
 
-if ( $wpwmm_opiton_check['wpwmm_ga']) {
-    require_once plugin_dir_path( __FILE__ ) . 'inc/wp-ga.php';
+if ( $wpwmm_opiton_check['wpwmm_ga'] ) {
+	require_once plugin_dir_path( __FILE__ ) . 'inc/wp-ga.php';
 }
 
 if ( $wpwmm_opiton_check['wpwmm_show_update_date'] == '1' ) {
-    require_once plugin_dir_path( __FILE__ ) . 'inc/wp-show-update-date.php';
+	require_once plugin_dir_path( __FILE__ ) . 'inc/wp-show-update-date.php';
 }
 
 if ( $wpwmm_opiton_check['wpwmm_revisions'] ) {
 	require_once plugin_dir_path( __FILE__ ) . 'inc/wp-revisions.php';
 }
 
-/*********************************/
-/*
-/* 管理画面
-/*
-/*********************************/
-
+/********************************
+ * 管理画面
+ ********************************/
 function wpwmm_init() {
 	$wpwmm_options = get_option( 'wpwmm_options' );
 
 	if ( ! isset( $wpwmm_options['wpwmm_user_icon'] ) ) {
 		$wpwmm_options['wpwmm_user_icon'] = '0';
 	}
-	if( ! isset( $wpwmm_options['wpwmm_rename_file'] ) ){
+	if ( ! isset( $wpwmm_options['wpwmm_rename_file'] ) ) {
 		$wpwmm_options['wpwmm_rename_file'] = '0';
 	}
-	if( ! isset( $wpwmm_options['wpwmm_restrict_dashboard'] ) ){
+	if ( ! isset( $wpwmm_options['wpwmm_restrict_dashboard'] ) ) {
 		$wpwmm_options['wpwmm_restrict_dashboard'] = '0';
 	}
-	if( ! isset( $wpwmm_options['wpwmm_show_update_date'] ) ){
+	if ( ! isset( $wpwmm_options['wpwmm_show_update_date'] ) ) {
 		$wpwmm_options['wpwmm_show_update_date'] = '0';
 	}
-	if( ! isset( $wpwmm_options['wpwmm_revisions'] ) ){
+	if ( ! isset( $wpwmm_options['wpwmm_revisions'] ) ) {
 		$wpwmm_options['wpwmm_revisions'] = '';
 	}
-	if( ! isset( $wpwmm_options['wpwmm_ga'] ) ){
+	if ( ! isset( $wpwmm_options['wpwmm_ga'] ) ) {
 		$wpwmm_options['wpwmm_ga'] = '';
 	}
 	update_option( 'wpwmm_options', $wpwmm_options );
@@ -117,7 +112,7 @@ function wpwmm_get_options() {
 }
 
 function wpwmm_config() {
-	include( 'wpwmm-admin.php' );
+	include 'wpwmm-admin.php';
 }
 
 function wpwmm_config_page() {
